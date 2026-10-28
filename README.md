@@ -1,38 +1,38 @@
-# Hancom Language Switch 1.0
+# Hancom Language Switch
 
-Công cụ độc lập để chọn giao diện English hoặc Korean cho Hangul/HWP và Hanword thuộc Hancom Office 2022 (12.x). Công cụ dùng các tệp tài nguyên ngôn ngữ đã có sẵn trong bản cài của bạn; không phải gói dịch mới hay sản phẩm chính thức của Hancom.
+[Tiếng Việt](README.vi.md)
 
-## Sử dụng
+A portable, independent Windows utility that selects the English or Korean interface for Hangul/HWP and Hanword in Hancom Office 2022 (version 12.x). It uses the language resources already installed with Hancom Office. This is not an official Hancom product or a new translation pack.
 
-1. Lưu tài liệu và đóng các ứng dụng Hancom, bao gồm tiện ích `한컴 기본 설정`. Nếu máy có cả Hancom 2010, hãy đóng bản đó trước khi chuyển.
-2. Chạy `HancomLanguageSwitch.exe` bằng cách nhấp đúp. Đây là bản chạy trực tiếp, không cần cài đặt hoặc quyền quản trị.
-3. Giữ chọn **Hangul / HWP (한글)**. Chọn thêm **Hanword (한워드)** nếu bạn muốn đổi ngôn ngữ cho cả ứng dụng đó.
-4. Bấm **Use English**, sau đó **Open Hangul** hoặc **Open Hanword**. Các nút mở ứng dụng dùng đường dẫn của bản 2022.
-5. Khi muốn trở lại tiếng Hàn, đóng các ứng dụng Hancom rồi bấm **Use Korean**. Nút **Restore original** khôi phục lựa chọn ngôn ngữ trước lần thay đổi đầu tiên của công cụ, đồng thời giữ những thiết lập khác đang có.
+## Requirements
 
-## Phạm vi thay đổi và sao lưu
+- Windows with Hancom Office 2022 and the selected application's matching English and Korean resource DLLs installed.
+- The .NET Framework 4 runtime; the executable runs without an installer or administrator privileges under normal user-profile permissions.
 
-- Chỉ sửa lựa chọn `CultureName` của các ứng dụng được chọn trong `%APPDATA%\HNC\User\Common\120\ThemeInfo.xml`.
-- Giữ nguyên ngôn ngữ mặc định chung, theme và thiết lập của ứng dụng không được chọn.
-- Không sửa DLL, tệp thực thi, bản quyền hay tài liệu `.hwp`/`.hwpx`/`.docx`.
-- Trước lần thay đổi đầu tiên, lưu bản gốc và mã kiểm tra SHA-256 tại `%LOCALAPPDATA%\HancomLanguageSwitch\2022\`.
-- Trước mỗi lần ghi, lưu thêm một bản sao cấu hình. Ghi thay thế nguyên tử và từ chối nếu cấu hình bị ứng dụng khác sửa trong lúc thực hiện.
-- Không tự đóng ứng dụng hay gửi nội dung tài liệu lên mạng.
-- Muốn bỏ công cụ, dùng **Restore original** nếu cần rồi xóa thư mục chứa công cụ. Bản sao lưu vẫn được giữ tại đường dẫn trên.
+## Getting started
 
-## Kết quả kiểm tra trên máy này — 28/10/2026
+1. Save your documents and close all Hancom applications, including Hancom Configuration Utility (한컴 기본 설정). Close older Hancom versions too.
+2. Download the portable ZIP from the latest GitHub release, extract it, and double-click `HancomLanguageSwitch.exe`.
+3. Select **Hangul / HWP (한글)**. Optionally select **Hanword (한워드)** as well.
+4. Click **Use English**, then **Open Hangul** or **Open Hanword**. These buttons launch the installed 2022 applications.
+5. To switch back, close Hancom and click **Use Korean**. **Restore original** restores the language settings captured before the first change by this utility.
 
-- Hangul `Hwp.exe` phiên bản **12.0.0.535** và `Hwp.String.en-US.dll` cùng phiên bản.
-- Sau khi đặt riêng `/root/Hwp/ThemeInfo/CultureName/@value` thành `en-US`, ứng dụng Hangul 2022 đã hiển thị các menu **File, Edit, View, Insert, Format, Pages, Security, Review, Tools** và các nút **Font, Paragraph, Page Margins, Columns, Picture, Table** bằng tiếng Anh.
-- Kiểm tra trên tài liệu trắng `verification/LanguageCheck.hwpx`, được sao chép từ mẫu Normal đi kèm Hancom. Tài liệu này không được đóng gói cùng công cụ.
-- Không xác nhận rằng tất cả hộp thoại đều có bản dịch đầy đủ. Một số tên phông chữ, nội dung mẫu hoặc thành phần có thể vẫn là tiếng Hàn.
-- Chức năng cho Hanword có kiểm tra tệp tài nguyên và kiểm thử cấu hình; chưa kiểm tra giao diện Hanword trực tiếp trên máy này.
-- 28 kiểm tra tự động đã vượt qua, gồm giới hạn ứng dụng/ngôn ngữ, bảo toàn cấu hình, hoàn tác, sao lưu hỏng, tệp XML hỏng, ứng dụng đang chạy và xung đột ghi.
+The main Hangul 2022 interface has been verified in English on version 12.0.0.535. Some dialogs, font names, or content may remain in Korean. Hanword's configuration and resources were checked, but its interface has not been verified interactively.
 
-## Mã nguồn và biên dịch
+## Configuration and backups
 
-Mã C# dùng .NET Framework có sẵn trên máy Windows đang chạy Hancom 2022. Chạy `build.ps1` trong PowerShell để tạo các tệp trong `dist`. Không cần tải thêm thư viện bên ngoài.
+The utility changes the selected applications' `CultureName` entries in `%APPDATA%\HNC\User\Common\120\ThemeInfo.xml`. It retains the shared default language and other settings. It does not modify Hancom program files, licenses, or documents, and does not upload document contents.
 
-`HancomLanguageSwitch.Cli.exe` là bản dòng lệnh dùng cùng mã xử lý, hỗ trợ `--status`, `--english`, `--korean`, `--restore`; đối số thứ hai tùy chọn là `Hwp` hoặc `Hwp,Hword`. Bản GUI là lựa chọn thông thường.
+Before the first change, the original configuration and its SHA-256 digest are saved under `%LOCALAPPDATA%\HancomLanguageSwitch\2022\`. An additional configuration snapshot is saved before each write. Changes are written with an atomic replacement and rejected if another process changes the configuration during the operation. Restore merges the original language settings into the current configuration, preserving other settings.
 
-`tools/InspectIL.cs` là tiện ích đọc IL ở chế độ reflection-only được dùng trong quá trình khảo sát. Không cần tiện ích này để chạy hoặc biên dịch bộ chuyển đổi. Bản đóng gói không chứa DLL hoặc mã nhị phân của Hancom.
+To remove the utility, restore the original language first if desired, then delete the extracted utility folder. Backups remain in the directory above.
+
+## Build and tests
+
+Run `build.ps1` in PowerShell on Windows with the .NET Framework compiler installed. The output is written to `dist`. The source uses framework libraries and requires no third-party packages. The optional `HancomLanguageSwitch.Cli.exe` build supports `--status`, `--english`, `--korean`, and `--restore`, with an optional second argument such as `Hwp` or `Hwp,Hword`.
+
+The initial release passed 28 automated assertions covering configuration preservation, restore, invalid input, corrupt backups, malformed XML, application-in-use checks, and concurrent writes. `tests/CoreTests.cs` contains the test harness. `tools/InspectIL.cs` is a reflection-only inspection utility used during development and is not required to run the switcher.
+
+## Scope
+
+The portable package contains the switcher and documentation; it does not redistribute Hancom DLLs or other Hancom binaries. Availability of language resources and translated UI coverage can vary between installations.
